@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.spreadsheet__container {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.spreadsheet__header {
+  flex: 0 0 auto;
+}
+
+.spreadsheet__container .spreadsheet__editor {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.spreadsheet__grid-container {
+  height: 100%;
+}
+
+.spreadsheet__sheets-container {
+  flex: 0 0 auto;
+}

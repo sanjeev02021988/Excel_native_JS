@@ -1,0 +1,22 @@
+.action-menu-ctr {
+  width: 150px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px lightgray;
+  background: white;
+  position: absolute;
+  z-index: 10;
+  display: none;
+}
+
+.action-menu-ctr .menu-items {
+  padding: 5px 0;
+}
+
+.action-menu-ctr .menu-items div {
+  padding: 8px;
+}
+
+.action-menu-ctr .menu-items div:hover {
+  background: #eeeeee;
+}
