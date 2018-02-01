@@ -43,6 +43,7 @@ const gridObj = (function () {
 
     //Method to render data into grid html.
     let _loadData = () => {
+      debugger;
       let data = this.data;
       let rowHtmlStr = '<div></div>';
       for (let i = 0; i < this.m; i++) {
@@ -137,7 +138,8 @@ const gridObj = (function () {
         inputElem.addEventListener('blur', (e) => {
           let cellElem = e.target.closest('div');
           let cellValue = e.target.value;
-          let { row, col } = getRowCol(e);
+          let row = Number(cellElem.getAttribute('row'));
+          let col = Number(cellElem.getAttribute('col'));
           if (!this.data[row] || !this.data[row][col]) {
             this.data[row] = [];
           }
