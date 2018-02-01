@@ -5,24 +5,53 @@
   <meta charset="UTF-8">
   <title>Spreadsheet</title>
   <link rel="stylesheet" href="./app.style.css" />
-  <link rel="stylesheet" href="./ActionMenu.style.css"/>
+  <link rel="stylesheet" href="./ActionMenu.style.css" />
   <link rel="stylesheet" href="./Grid.style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
 <div class="spreadsheet__container">
   <div class="spreadsheet__header">
-    <div class="spreadsheet__title">
-      untitled spreadsheet
+    <div class="spreasheet__main-menu-bar">
+      <div>
+        <img src="./Pinchi.png"/>
+      </div>
+      <div>
+        <div class="spreadsheet__title"><input type="text" value="Spreadsheet Title"/></div>
+        <div class="spreadsheet__menu-bar">
+          <div>
+            File
+          </div>
+          <div>
+            Edit
+          </div>
+        </div>
+      </div>
     </div>
     <div class="spreadsheet__edit-options">
-      <div class="spreadsheet__menu-bar">
-        menu-bar
-      </div>
       <div class="spreadsheet__tool-bar">
-        toolbar
+        <div class="spreadsheet__tool-bar-group">
+          <i class="material-icons">print</i>
+          <i class="material-icons">undo</i>
+          <i class="material-icons">redo</i>
+        </div>
+        <div class="spreadsheet__tool-bar-group">
+          <i class="material-icons">format_align_left</i>
+          <i class="material-icons">format_align_center</i>
+          <i class="material-icons">format_align_right</i>
+        </div>
+        <div class="spreadsheet__tool-bar-group">
+          <i class="material-icons">vertical_align_top</i>
+          <i class="material-icons">vertical_align_center</i>
+          <i class="material-icons">vertical_align_bottom</i>
+        </div>
+        <div class="spreadsheet__tool-bar-group">
+          <i class="material-icons">format_bold</i>
+          <i class="material-icons">format_italic</i>
+        </div>
       </div>
       <div class="spreadsheet__formula-bar">
-        <label for="formula"><i>fx</i></label> <label>|</label> <input id="formula" type="text"/>
+        <label for="formula"><i>fx</i></label> <label>|</label> <input id="formula" type="text" />
       </div>
     </div>
   </div>
@@ -42,7 +71,17 @@
       </div>
     </div>
     <div class="spreadsheet__sheets-container">
-      footer
+      <div class="spreadsheet-add-sheet-btn">
+        <i class="material-icons">add</i>
+      </div>
+      <div class="spreadsheet__sheet-list">
+        <div class="active">
+          <input type="text" value="sheet1"/>
+        </div>
+        <div>
+          <input type="text" value="sheet2"/>
+        </div>
+      </div>
     </div>
   </div>
 </div>

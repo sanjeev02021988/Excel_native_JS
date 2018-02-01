@@ -52,11 +52,11 @@ body {
 
 .grid__row-index-ctr div,
 .grid__header .grid__row {
-  background-color: #f1f6f7;
+  background-color: #f3f3f3;
 }
 
 .grid__header .grid__row div {
-  border-left: 1px solid #d3e2e6;
+  border-left: 1px solid #d2d2d2;
 }
 
 .grid__row {
@@ -83,7 +83,7 @@ body {
 }
 
 .grid__row-index-ctr div {
-  border-bottom: 1px solid #d3e2e6;
+  border-bottom: 1px solid #d2d2d2;
 }
 
 .grid__row input {
