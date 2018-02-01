@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  user-select: none;
 }
 
 div {
@@ -109,11 +110,12 @@ div {
   display: flex;
   height: 30px;
   padding-left: 40px;
-  color:dimgray;
+  color: dimgray;
 }
-.spreadsheet__sheets-container i{
+
+.spreadsheet__sheets-container i {
   font-weight: bold;
-  padding:2px;
+  padding: 2px;
 }
 
 .spreadsheet__sheet-list {
@@ -131,7 +133,7 @@ div {
   border: 0;
   padding: 5px 10px 5px 10px;
   background: #e9e9e9;
-  color:dimgray;
+  color: dimgray;
 }
 
 .spreadsheet__sheet-list div.active {

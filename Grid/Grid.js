@@ -3,26 +3,6 @@ let data = [
   [4, 5, 6],
   [1, 3, 4]
 ];
-function convertToBase(base, num) {
-  let str = '';
-  while (num !== 0) {
-    num = num - 1;
-    let rem = num % base;
-    str = String.fromCharCode(rem + 65) + str;
-    num = parseInt(num / base);
-  }
-  return str;
-}
-let convertToBase26 = convertToBase.bind(null, 26);
-function Cell(row, col, data) {
-  this.getHtml = () => {
-    if (data) {
-      return `<div row='${row}' col='${col}'>${data}</div>`;
-    } else {
-      return `<div row='${row}' col='${col}'></div>`;
-    }
-  }
-}
 function grid(data) {
   const self = this;
   let DEFAULT_ROW_COUNT = 30;
@@ -95,6 +75,10 @@ function grid(data) {
         name: 'Delete row',
         callback: deleteRow.bind(self, row)
       },
+      {
+        name: 'Sort',
+        callback: sort.bind(self, row)
+      },
     ];
     actionMenuObj.show(e, menuItems);
     function deleteRow(row) {
@@ -106,6 +90,11 @@ function grid(data) {
     function insert(row) {
       self.m++;
       self.data = [...self.data.slice(0, row), [], ...self.data.slice(row)];
+      _loadData();
+    }
+
+    function sort(row) {
+      self.data[row].sort((a, b) => a - b);
       _loadData();
     }
   });
@@ -124,13 +113,17 @@ function grid(data) {
         name: 'Delete column',
         callback: deleteCol.bind(self, col)
       },
+      {
+        name: 'Sort',
+        callback: sort.bind(self, col)
+      },
     ];
     actionMenuObj.show(e, menuItems);
     function insert(col) {
       self.n++;
       for (let i = 0; i < self.data.length; i++) {
         let rowData = self.data[i];
-        self.data[i] = [...rowData.slice(0, col), '', ...rowData.slice(col)];
+        self.data[i] = [...rowData.slice(0, col), undefined, ...rowData.slice(col)];
       }
       _loadData();
     }
@@ -141,6 +134,11 @@ function grid(data) {
         let rowData = self.data[i];
         self.data[i] = [...rowData.slice(0, col), ...rowData.slice(col + 1)];
       }
+      _loadData();
+    }
+
+    function sort(col) {
+      self.data.sort((a, b) => a[col] - b[col]);
       _loadData();
     }
   });

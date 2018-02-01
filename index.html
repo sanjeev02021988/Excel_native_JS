@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>Spreadsheet</title>
   <link rel="stylesheet" href="./app.style.css" />
-  <link rel="stylesheet" href="./ActionMenu.style.css" />
-  <link rel="stylesheet" href="./Grid.style.css" />
+  <link rel="stylesheet" href="./ActionMenu/ActionMenu.style.css" />
+  <link rel="stylesheet" href="./Grid/Grid.style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
@@ -14,10 +14,10 @@
   <div class="spreadsheet__header">
     <div class="spreasheet__main-menu-bar">
       <div>
-        <img src="./Pinchi.png"/>
+        <img src="./Pinchi.png" />
       </div>
       <div>
-        <div class="spreadsheet__title"><input type="text" value="Spreadsheet Title"/></div>
+        <div class="spreadsheet__title"><input type="text" value="Spreadsheet Title" /></div>
         <div class="spreadsheet__menu-bar">
           <div>
             File
@@ -76,10 +76,10 @@
       </div>
       <div class="spreadsheet__sheet-list">
         <div class="active">
-          <input type="text" value="sheet1"/>
+          <input type="text" value="sheet1" />
         </div>
         <div>
-          <input type="text" value="sheet2"/>
+          <input type="text" value="sheet2" />
         </div>
       </div>
     </div>
@@ -89,7 +89,9 @@
   <div class="menu-items">
   </div>
 </div>
-<script src="./ActionMenu.js"></script>
-<script src="./Grid.js"></script>
+<script src="./ActionMenu/ActionMenu.js"></script>
+<script src="./Grid/Utility.js"></script>
+<script src="./Grid/Cell.js"></script>
+<script src="./Grid/Grid.js"></script>
 </body>
 </html>
