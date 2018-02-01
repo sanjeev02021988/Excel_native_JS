@@ -4,7 +4,9 @@
   <meta name="description" content="Immutable Playground" />
   <meta charset="UTF-8">
   <title>Spreadsheet</title>
-  <link rel="stylesheet" href="./app.style.css"/>
+  <link rel="stylesheet" href="./app.style.css" />
+  <link rel="stylesheet" href="./ActionMenu.style.css"/>
+  <link rel="stylesheet" href="./Grid.style.css" />
 </head>
 <body>
 <div class="spreadsheet__container">
@@ -20,18 +22,35 @@
         toolbar
       </div>
       <div class="spreadsheet__formula-bar">
-        formulabar
+        <label for="formula"><i>fx</i></label> <label>|</label> <input id="formula" type="text"/>
       </div>
     </div>
   </div>
   <div class="spreadsheet__editor">
     <div class="spreadsheet__grid-container">
-      editor
+      <div class="grid__container">
+        <div class="grid__row-index-ctr">
+        </div>
+        <div class="grid__col-index-ctr-content">
+          <div class="grid__header">
+            <div class="grid__row">
+            </div>
+          </div>
+          <div class="grid__content">
+          </div>
+        </div>
+      </div>
     </div>
     <div class="spreadsheet__sheets-container">
       footer
     </div>
   </div>
 </div>
+<div class="action-menu-ctr">
+  <div class="menu-items">
+  </div>
+</div>
+<script src="./ActionMenu.js"></script>
+<script src="./Grid.js"></script>
 </body>
 </html>

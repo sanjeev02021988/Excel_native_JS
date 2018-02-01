@@ -1,8 +1,10 @@
-function ActionMenu(menuItems){
+function ActionMenu() {
   let actionMenuCtrElem = document.querySelector('.action-menu-ctr');
   let hide = true;
-  this.show = (e) => {
+  this.menuItems = [];
+  this.show = (e, menuItems) => {
     e.preventDefault();
+    this.menuItems = menuItems;
     let menuItemsHtml = '';
     menuItems.forEach((item, index) => {
       menuItemsHtml += `<div index=${index}>${item.name}</div>`;
@@ -20,22 +22,11 @@ function ActionMenu(menuItems){
   };
   actionMenuCtrElem.addEventListener('click', (e) => {
     let index = e.target.getAttribute('index');
-    menuItems[index].callback();
+    this.menuItems[index].callback();
+  });
+  document.addEventListener('click', function (e) {
+    actionMenuObj.hide();
   });
 }
-let actionMenuObj = new ActionMenu([
-  {
-    name:'Add Item', 
-    callback:()=>console.log('Add Item')
-  },
-  {
-    name:'Remove Item',
-    callback:()=>console.log('Remove Item')
-  }
-]);
-document.addEventListener('contextmenu', function(e){
-  actionMenuObj.show(e);
-});
-document.addEventListener('click', function(e){
-  actionMenuObj.hide();
-});
+let actionMenuObj = new ActionMenu();
+
