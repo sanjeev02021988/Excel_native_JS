@@ -1,4 +1,4 @@
-let actionMenuObj = (function () {
+const actionMenuObj = (function () {
   function ActionMenu() {
     let actionMenuCtrElem = document.querySelector('.action-menu-ctr');
     let hide = true;
