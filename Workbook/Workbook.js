@@ -67,7 +67,6 @@ function Workbook() {
       changeSheet(Number(e.target.getAttribute('index')));
     });
     sheetListCtrElem.addEventListener('dblclick', function (e) {
-      debugger;
       let sheetTitleElem = e.target;
       currentSheet = e.target.getAttribute('index');
       let sheetObj = self.getCurrentSheetObj();

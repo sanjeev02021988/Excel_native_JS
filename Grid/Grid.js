@@ -80,6 +80,7 @@ const gridObj = (function () {
       let col = Number(e.target.getAttribute('col'));
       return { row, col };
     };
+
     //Method to attach events.
     let addEvents = () => {
       let startRow = 0, startCol = 0;
@@ -90,6 +91,7 @@ const gridObj = (function () {
         cKey = 67;
       let copied = false;
       let currentRow = null, currentCol = null;
+
       gridElem.addEventListener('click', (e) => {
         let { row, col } = getRowCol(e);
         if (currentRow !== null && typeof currentRow !== 'undefined') {
@@ -100,8 +102,16 @@ const gridObj = (function () {
         }
         currentRow = row;
         currentCol = col;
-        rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`).classList.add('active');
-        colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`).classList.add('active');
+        if (e.target.getAttribute('row') === null) {
+          colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`).classList.add('active');
+        } else {
+          rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`).classList.add('active');
+        }
+        if (e.target.getAttribute('col') === null) {
+          rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`).classList.add('active');
+        } else {
+          colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`).classList.add('active');
+        }
       });
 
       gridElem.addEventListener('mousedown', (e) => {
@@ -134,7 +144,7 @@ const gridObj = (function () {
           copied = true;
         }
         if (ctrlDown && copied && clipboard && e.keyCode == vKey) {
-          if(currentRow !== null && currentCol !== null){
+          if (currentRow !== null && currentCol !== null) {
             self.data = appendData(self.data, clipboard, currentRow, currentCol);
             _loadData();
           }

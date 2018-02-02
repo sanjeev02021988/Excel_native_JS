@@ -60,9 +60,20 @@ body {
   background: #dddddd;
 }
 
+.grid__content .grid__row.active-row {
+  border: 1px solid #7aa8f5;
+  background: rgba(160, 195, 255, 0.2);
+}
+
+.grid__content .active-col {
+  border-left: 1px solid #7aa8f5;
+  border-right: 1px solid #7aa8f5;
+  background: rgba(160, 195, 255, 0.2);
+}
 
 .grid__header .grid__row div {
-  border-left: 1px solid #d2d2d2;
+  border: 1px solid #d2d2d2;
+  border-right: 0;
 }
 
 .grid__row {
@@ -84,12 +95,16 @@ body {
 }
 
 .grid__content .grid__row div {
-  border-left: 1px solid #eeeeee;
-  border-bottom: 1px solid #eeeeee;
+  border-left: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
 }
 
 .grid__row-index-ctr div {
   border-bottom: 1px solid #d2d2d2;
+}
+
+.grid__row-index-ctr div:first-child {
+  border-top: 1px solid #d2d2d2;
 }
 
 .grid__row input {
