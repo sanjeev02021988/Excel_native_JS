@@ -55,6 +55,12 @@ body {
   background-color: #f3f3f3;
 }
 
+.grid__row-index-ctr div.active,
+.grid__header .grid__row div.active {
+  background: #dddddd;
+}
+
+
 .grid__header .grid__row div {
   border-left: 1px solid #d2d2d2;
 }

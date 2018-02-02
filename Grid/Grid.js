@@ -1,9 +1,3 @@
-let data = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [1, 3, 4]
-];
-
 const gridObj = (function () {
   function Grid() {
     const self = this;
@@ -13,6 +7,7 @@ const gridObj = (function () {
     this.n = DEFAULT_COL_COUNT;
 
     this.data = [];
+    let onChangeCallback = () => {};
 
     let gridElem = document.querySelector('.grid__container');
     let rowCtrElem = gridElem.querySelector('.grid__row-index-ctr');
@@ -24,6 +19,16 @@ const gridObj = (function () {
       this.data = data;
       _updateRowAndColCount();
       _loadData();
+    };
+
+    //Single subscriber only for grid changes
+    this.subscribeChanges = callback => {
+      onChangeCallback = callback;
+    };
+
+    const updateData = (data) => {
+      this.data = data;
+      onChangeCallback(data);
     };
 
     //Method to update row and col count.
@@ -43,7 +48,6 @@ const gridObj = (function () {
 
     //Method to render data into grid html.
     let _loadData = () => {
-      debugger;
       let data = this.data;
       let rowHtmlStr = '<div></div>';
       for (let i = 0; i < this.m; i++) {
@@ -68,6 +72,7 @@ const gridObj = (function () {
         htmlStr += rowData;
       }
       ctrElem.innerHTML = htmlStr;
+      onChangeCallback(data);
     };
 
     let getRowCol = (e) => {
@@ -87,8 +92,16 @@ const gridObj = (function () {
       let currentRow = null, currentCol = null;
       gridElem.addEventListener('click', (e) => {
         let { row, col } = getRowCol(e);
+        if (currentRow !== null && typeof currentRow !== 'undefined') {
+          rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`).classList.remove('active');
+        }
+        if (currentCol !== null && typeof currentCol !== 'undefined') {
+          colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`).classList.remove('active');
+        }
         currentRow = row;
         currentCol = col;
+        rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`).classList.add('active');
+        colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`).classList.add('active');
       });
 
       gridElem.addEventListener('mousedown', (e) => {
@@ -103,7 +116,7 @@ const gridObj = (function () {
           return null;
         }
         copied = false;
-        clipboard = getData(data, startRow, startCol, row, col);
+        clipboard = getData(self.data, startRow, startCol, row, col);
       });
 
       document.addEventListener('keydown', function (e) {
@@ -249,5 +262,3 @@ const gridObj = (function () {
 
   return new Grid();
 })();
-
-gridObj.loadData(data);
