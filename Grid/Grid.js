@@ -83,6 +83,12 @@ const gridObj = (function () {
 
     //Method to attach events.
     let addEvents = () => {
+      _enableCopyPaste();
+      _enableCellEditing();
+      _addContextMenuForColandRowHdr();
+    };
+
+    const _enableCopyPaste = () => {
       let startRow = 0, startCol = 0;
       let clipboard = null;
       let ctrlDown = false,
@@ -94,23 +100,27 @@ const gridObj = (function () {
 
       gridElem.addEventListener('click', (e) => {
         let { row, col } = getRowCol(e);
-        if (currentRow !== null && typeof currentRow !== 'undefined') {
-          rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`).classList.remove('active');
+        let rowHdrCurrentCell = rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`);
+        let colHdrCurrentCell = colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`);
+        if (rowHdrCurrentCell) {
+          rowHdrCurrentCell.classList.remove('active');
         }
-        if (currentCol !== null && typeof currentCol !== 'undefined') {
-          colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`).classList.remove('active');
+        if (colHdrCurrentCell) {
+          colHdrCurrentCell.classList.remove('active');
         }
         currentRow = row;
         currentCol = col;
+        rowHdrCurrentCell = rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`);
+        colHdrCurrentCell = colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`);
         if (e.target.getAttribute('row') === null) {
-          colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`).classList.add('active');
+          colHdrCurrentCell.classList.add('active');
         } else {
-          rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`).classList.add('active');
+          rowHdrCurrentCell.classList.add('active');
         }
         if (e.target.getAttribute('col') === null) {
-          rowCtrElem.querySelector(`div:nth-child(${currentRow + 2})`).classList.add('active');
+          rowHdrCurrentCell.classList.add('active');
         } else {
-          colCtrElem.querySelector(`div:nth-child(${currentCol + 1})`).classList.add('active');
+          colHdrCurrentCell.classList.add('active');
         }
       });
 
@@ -130,27 +140,27 @@ const gridObj = (function () {
       });
 
       document.addEventListener('keydown', function (e) {
-        if (e.keyCode == ctrlKey) {
+        if (e.keyCode === ctrlKey) {
           ctrlDown = true;
         }
-      });
-      document.addEventListener('keyup', function (e) {
-        if (e.keyCode == ctrlKey) {
-          ctrlDown = false;
-        }
-      });
-      document.addEventListener('keydown', function (e) {
-        if (ctrlDown && clipboard && e.keyCode == cKey) {
+        if (ctrlDown && clipboard && e.keyCode === cKey) {
           copied = true;
         }
-        if (ctrlDown && copied && clipboard && e.keyCode == vKey) {
+        if (ctrlDown && copied && clipboard && e.keyCode === vKey) {
           if (currentRow !== null && currentCol !== null) {
             self.data = appendData(self.data, clipboard, currentRow, currentCol);
             _loadData();
           }
         }
       });
+      document.addEventListener('keyup', function (e) {
+        if (e.keyCode === ctrlKey) {
+          ctrlDown = false;
+        }
+      });
+    };
 
+    const _enableCellEditing = () => {
       gridElem.addEventListener('dblclick', (e) => {
         let cellElem = e.target;
         let { row, col } = getRowCol(e);
@@ -161,8 +171,6 @@ const gridObj = (function () {
         inputElem.addEventListener('blur', (e) => {
           let cellElem = e.target.closest('div');
           let cellValue = e.target.value;
-          let row = Number(cellElem.getAttribute('row'));
-          let col = Number(cellElem.getAttribute('col'));
           if (!this.data[row]) {
             this.data[row] = [];
           }
@@ -170,7 +178,9 @@ const gridObj = (function () {
           cellElem.innerHTML = cellValue;
         });
       });
+    };
 
+    const _addContextMenuForColandRowHdr = () => {
       rowCtrElem.addEventListener('contextmenu', function (e) {
         let row = Number(e.target.getAttribute('row'));
         let menuItems = [
