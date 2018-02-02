@@ -163,7 +163,7 @@ const gridObj = (function () {
           let cellValue = e.target.value;
           let row = Number(cellElem.getAttribute('row'));
           let col = Number(cellElem.getAttribute('col'));
-          if (!this.data[row] || !this.data[row][col]) {
+          if (!this.data[row]) {
             this.data[row] = [];
           }
           this.data[row][col] = cellValue;
@@ -184,28 +184,24 @@ const gridObj = (function () {
           },
           {
             name: 'Delete row',
-            callback: deleteRow.bind(self, row)
+            callback: () => {
+              self.m--;
+              self.data = [...self.data.slice(0, row), ...self.data.slice(row + 1)];
+              _loadData();
+            }
           },
           {
             name: 'Sort',
-            callback: sort.bind(self, row)
+            callback: () => {
+              self.data[row].sort((a, b) => a - b);
+              _loadData();
+            }
           },
         ];
         actionMenuObj.show(e, menuItems);
-        function deleteRow(row) {
-          self.m--;
-          self.data = [...self.data.slice(0, row), ...self.data.slice(row + 1)];
-          _loadData();
-        }
-
         function insert(row) {
           self.m++;
           self.data = [...self.data.slice(0, row), [], ...self.data.slice(row)];
-          _loadData();
-        }
-
-        function sort(row) {
-          self.data[row].sort((a, b) => a - b);
           _loadData();
         }
       });
@@ -223,46 +219,24 @@ const gridObj = (function () {
           },
           {
             name: 'Delete column',
-            callback: deleteCol.bind(self, col)
+            callback: () => {
+              self.n--;
+              deleteCol(self.data, col);
+              _loadData();
+            }
           },
           {
             name: 'Sort',
-            callback: sort.bind(self, col)
+            callback: () => {
+              sortColumn(self.data, col);
+              _loadData();
+            }
           },
         ];
         actionMenuObj.show(e, menuItems);
         function insert(col) {
           self.n++;
-          for (let i = 0; i < self.data.length; i++) {
-            let rowData = self.data[i];
-            if (rowData) {
-              self.data[i] = [...rowData.slice(0, col), undefined, ...rowData.slice(col)];
-            }
-          }
-          _loadData();
-        }
-
-        function deleteCol(col) {
-          self.n++;
-          for (let i = 0; i < self.data.length; i++) {
-            let rowData = self.data[i];
-            if (rowData) {
-              self.data[i] = [...rowData.slice(0, col), ...rowData.slice(col + 1)];
-            }
-          }
-          _loadData();
-        }
-
-        function sort(col) {
-          self.data.sort((a, b) => {
-            if (typeof b[col] === 'undefined') {
-              return -1;
-            }
-            if (typeof a[col] === 'undefined') {
-              return 1;
-            }
-            return a[col] - b[col];
-          });
+          insertNewCol(self.data, col);
           _loadData();
         }
       });

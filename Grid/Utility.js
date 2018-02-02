@@ -49,3 +49,33 @@ function appendData(data1, data2, x1, y1) {
   }
   return data1;
 }
+
+function sortColumn(data, col) {
+  data.sort((a, b) => {
+    if (typeof b[col] === 'undefined') {
+      return -1;
+    }
+    if (typeof a[col] === 'undefined') {
+      return 1;
+    }
+    return a[col] - b[col];
+  });
+}
+
+function insertNewCol(data, col) {
+  for (let i = 0; i < data.length; i++) {
+    let rowData = data[i];
+    if (rowData) {
+      data[i] = [...rowData.slice(0, col), undefined, ...rowData.slice(col)];
+    }
+  }
+}
+
+function deleteCol(data, col) {
+  for (let i = 0; i < data.length; i++) {
+    let rowData = data[i];
+    if (rowData) {
+      data[i] = [...rowData.slice(0, col), ...rowData.slice(col + 1)];
+    }
+  }
+}
